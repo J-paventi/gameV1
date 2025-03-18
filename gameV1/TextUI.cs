@@ -62,5 +62,13 @@ namespace gameV1
 
             return weaponChoice;
         }
+
+        public void DisplayPlayerLevelUp(Player player)
+        {
+            Console.WriteLine($"\nCongratulations, {player.Name}! You have reached level {player.Level}.\n");
+            player.GetPlayerDetails();
+            Console.ReadKey();
+            Console.Clear();
+        }
     }
 }

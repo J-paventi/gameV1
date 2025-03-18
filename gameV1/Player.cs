@@ -15,6 +15,7 @@ namespace gameV1
         private int mana;
         private int maxMana;
         private int level;
+        private int levelUpThreshold;
         private int experience;
         private int gold;
         private int strength;
@@ -30,7 +31,8 @@ namespace gameV1
         public int Mana { get => mana; set => mana = value; }
         public int MaxMana { get => maxMana; set => maxMana = value; }
         public int Level { get => level; set => level = value; }
-        public int Experience { get => experience; set => experience = value; }
+        public int LevelUpThreshold { get => levelUpThreshold; set => levelUpThreshold = value; }
+        public int TotalExperience { get => experience; set => experience = value; }
         public int Gold { get => gold; set => gold = value; }
         public int Strength { get => strength; set => strength = value; }
         public int Accuracy { get => accuracy; set => accuracy = value; }
@@ -72,7 +74,8 @@ namespace gameV1
             MaxMana = 100;
             Mana = MaxMana;
             Level = 0;
-            Experience = 0;
+            LevelUpThreshold = 100;
+            TotalExperience = 99;
             Gold = 10;
             Strength = 10;
             Accuracy = 100;
@@ -88,7 +91,7 @@ namespace gameV1
             Console.WriteLine($"Health: {Health}");
             Console.WriteLine($"Mana: {Mana}");
             Console.WriteLine($"Level: {Level}");
-            Console.WriteLine($"Experience: {Experience}");
+            Console.WriteLine($"TotalExperience: {TotalExperience}");
             Console.WriteLine($"Gold: {Gold}");
             Console.WriteLine($"Weapon: {EquippedWeapon}");
         }
@@ -108,22 +111,28 @@ namespace gameV1
             CritChance += weapon.CritChanceModifier;
         }
 
-        public void GainExperience(int xp)
+        public bool GainExperience(Player player, int xp)
         {
-            Experience += xp;
-            if (Experience >= 100 + (Level*123))
+            bool levelUp = false;
+            TotalExperience += xp;
+            if (TotalExperience >= player.LevelUpThreshold)
             {
-                LevelUp();
+                levelUp = true;
             }
+
+            return levelUp;
         }
 
-        public void LevelUp()
+        public void LevelUp(Player player)
         {
+            TextUI textUI = new TextUI();
             Level++;
             MaxHealth += 10;
             Health = MaxHealth;
             MaxMana += 10;
             Mana = MaxMana;
+            LevelUpThreshold += (int)(LevelUpThreshold * 1.05);
+            textUI.DisplayPlayerLevelUp(player);
         }
 
         public int TakeDamage(int damage)

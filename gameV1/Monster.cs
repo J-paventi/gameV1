@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 
 namespace gameV1
 {
-
     internal class Monster
     {
         // Class members

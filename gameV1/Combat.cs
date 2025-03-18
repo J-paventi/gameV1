@@ -172,7 +172,12 @@ namespace gameV1
                     player.Mana = player.MaxMana;
                 }
             }
-            player.Experience += monster.XpValue;
+            
+            bool didPlayerLevel = player.GainExperience(player, monster.XpValue);
+            if (didPlayerLevel == true)
+            {
+                player.LevelUp(player);
+            }
             player.Gold += monster.GoldValue;
             Console.WriteLine("You have gained experience and gold!");
             player.GetPlayerDetails();
