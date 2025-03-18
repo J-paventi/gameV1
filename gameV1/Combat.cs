@@ -36,7 +36,15 @@ namespace gameV1
             CombatScreen();
             Console.Clear();
             EndCombat();
-            Loot();
+            if(monster.Health <= 0)
+            {
+                Loot();
+            }
+            else
+            {
+                Console.WriteLine("You have been defeated!");
+                Console.ReadKey();
+            }
         }
 
         public void RollInitiative()
@@ -72,6 +80,7 @@ namespace gameV1
                 {
                     attackDmg = player.CalculateCritDamage(attackDmg);
                     Console.WriteLine("Critical hit!");
+                    Console.ReadKey();
                 }
                 monster.TakeDamage(attackDmg);
                 Console.WriteLine($"{monster.Name} takes {attackDmg}!");

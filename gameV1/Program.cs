@@ -9,8 +9,11 @@
             systemMessage.DisplayWelcomeMsg();
             player.Name = systemMessage.GetPlayerName();
             player.ChangePlayerWeapon(systemMessage.ChooseStarterWeapon(player.Name));
-            Combat monsterFight = new Combat(new Monster(), player);
-            monsterFight.StartCombat();
+            while(player.Health > 0)
+            {
+                Combat monsterFight = new Combat(new Monster(), player);
+                monsterFight.StartCombat();
+            }
         }
     }
 }
