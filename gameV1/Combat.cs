@@ -51,10 +51,12 @@ namespace gameV1
         {
             Console.Clear();
             Random random = new Random();
-            int PlayerInitiative = random.Next(1, 21);
-            int MonsterInitiative = random.Next(1, 21);
-            CombatDetails();
-            if (PlayerInitiative > MonsterInitiative)
+            int playerInitiative = random.Next(1, 21);
+            int monsterInitiative = random.Next(1, 21);
+            PlayerInitiative = playerInitiative;
+            MonsterInitiative = monsterInitiative;
+            CombatDetails(playerInitiative, monsterInitiative);
+            if (playerInitiative > monsterInitiative)
             {
                 Console.WriteLine($"{player.Name} goes first!\n");
                 Console.ReadKey();
@@ -127,7 +129,7 @@ namespace gameV1
             }
         }
 
-        public void CombatDetails()
+        public void CombatDetails(int playerInitiative, int monsterInitiative)
         {
             Console.WriteLine($"\n{player.Name} Initiative: {PlayerInitiative}");
             Console.WriteLine($"{monster.Name} Initiative: {MonsterInitiative}");

@@ -67,7 +67,7 @@ namespace gameV1
         public Player()
         {
             name = "Player";
-            MaxHealth = 10;
+            MaxHealth = 100;
             Health = MaxHealth;
             MaxMana = 100;
             Mana = MaxMana;
