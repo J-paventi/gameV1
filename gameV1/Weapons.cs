@@ -28,23 +28,31 @@ namespace gameV1
         {
             weaponList = new Dictionary<string, int>()
             {
-                { "Knuckles", 2 },
-                { "Wooden Sword", 5 },
-                { "Wooden Spear", 3 },
-                { "Wooden Bow", 5 },
-                { "Knuckle Dusters", 3 },
-                { "Sword", 7 },
-                { "Spear", 5 },
-                { "Bow", 7 },
-                { "Iron Knuckles", 6 },
-                { "Iron Sword", 10 },
-                { "Iron Spear", 7 },
-                { "Iron Bow", 10 },
-                { "Steel Knuckles", 8 },
-                { "Steel Sword", 15 },
-                { "Steel Spear", 12 },
-                { "Steel Bow", 15 },
-                { "Doom Laser", 100 },
+                // Level 0 Weapons
+                { "Knuckles", 0 },
+                { "Wooden Sword", 0 },
+                { "Wooden Spear", 0 },
+                { "Wooden Bow", 0 },
+                // Level 1 Weapons
+                { "Knuckle Dusters", 1 },
+                { "Sword", 1 },
+                { "Spear", 1 },
+                { "Bow", 1 },
+                // Level 2 Weapons
+                { "Iron Knuckles", 2 },
+                { "Iron Sword", 2 },
+                { "Iron Spear", 2 },
+                { "Iron Bow", 2 },
+                // Level 3 Weapons
+                { "Steel Knuckles", 3 },
+                { "Steel Sword", 3 },
+                { "Steel Spear", 3 },
+                { "Steel Bow", 3 },
+                // Debug Weapons
+                { "Debug Knuckles", 100 },
+                { "Debug Sword", 100 },
+                { "Debug Spear", 100 },
+                { "Debug Bow", 100 },
             };
         }
 
