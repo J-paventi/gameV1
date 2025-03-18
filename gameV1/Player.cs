@@ -100,7 +100,7 @@ namespace gameV1
         {
             Weapons weapons = new Weapons();
             EquippedWeapon = weapons.SetWeapon(weaponName);
-            weapons = weapons.GetWeaponsClass(weaponName);
+            weapons = Weapons.GetWeaponsClass(weaponName);
             UpdateStatsWithWeapon(weapons);
         }
 
@@ -132,7 +132,7 @@ namespace gameV1
             MaxMana += 10;
             Mana = MaxMana;
             LevelUpThreshold += (int)(LevelUpThreshold * 1.05);
-            textUI.DisplayPlayerLevelUp(player);
+            TextUI.DisplayPlayerLevelUp(player);
         }
 
         public int TakeDamage(int damage)
@@ -171,9 +171,9 @@ namespace gameV1
             }
         }
 
-        public int CalculateCritDamage(int damageCalc)
+        public static int CalculateCritDamage(int damageCalc)
         {
-            damageCalc = damageCalc * 2;
+            damageCalc *= 2;
 
             return damageCalc;
         }

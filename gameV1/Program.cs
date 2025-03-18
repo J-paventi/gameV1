@@ -6,9 +6,9 @@
         {
             Player player = new Player();
             TextUI systemMessage = new TextUI();
-            systemMessage.DisplayWelcomeMsg();
-            player.Name = systemMessage.GetPlayerName();
-            player.ChangePlayerWeapon(systemMessage.ChooseStarterWeapon(player.Name));
+            TextUI.DisplayWelcomeMsg();
+            player.Name = TextUI.GetPlayerName();
+            player.ChangePlayerWeapon(TextUI.ChooseStarterWeapon(player.Name));
             while(player.Health > 0)
             {
                 Combat monsterFight = new Combat(new Monster(), player);

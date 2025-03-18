@@ -74,7 +74,7 @@ namespace gameV1
 
         public List<KeyValuePair<string, int>> FilterWeapons(int minDamage)
         {
-            List<KeyValuePair<string, int>> filteredWeapons = new List<KeyValuePair<string, int>>();
+            List<KeyValuePair<string, int>> filteredWeapons = [];
             foreach (KeyValuePair<string, int> weapon in weaponList)
             {
                 if (weapon.Value <= minDamage)
@@ -103,7 +103,7 @@ namespace gameV1
             return weapon.Key;
         }
 
-        public Weapons GetWeaponsClass(string weaponName)
+        public static Weapons GetWeaponsClass(string weaponName)
         {
             return weaponName switch
             {

@@ -8,14 +8,14 @@ namespace gameV1
 {
     internal class TextUI
     {
-        public void DisplayWelcomeMsg()
+        public static void DisplayWelcomeMsg()
         {
             Console.WriteLine("Welcome to Definitely Not DragonQuest.\n");
             Console.WriteLine("Press any key to continue\n");
             Console.ReadKey();
         }
 
-        public string GetPlayerName()
+        public static string GetPlayerName()
         {
             Console.WriteLine("Please enter a name for your character.\n");
             Console.Write("Name: ");
@@ -33,7 +33,7 @@ namespace gameV1
             return inputName;
         }
 
-        public string ChooseStarterWeapon(string playerName)
+        public static string ChooseStarterWeapon(string playerName)
         {
             Console.WriteLine($"\nWelcome, {playerName}. Please choose a weapon.\n");
             Weapons weapons = new Weapons();
@@ -63,7 +63,7 @@ namespace gameV1
             return weaponChoice;
         }
 
-        public void DisplayPlayerLevelUp(Player player)
+        public static void DisplayPlayerLevelUp(Player player)
         {
             Console.WriteLine($"\nCongratulations, {player.Name}! You have reached level {player.Level}.\n");
             player.GetPlayerDetails();

@@ -50,7 +50,7 @@ namespace gameV1
         public void RollInitiative()
         {
             Console.Clear();
-            Random random = new Random();
+            Random random = new();
             int playerInitiative = random.Next(1, 21);
             int monsterInitiative = random.Next(1, 21);
             PlayerInitiative = playerInitiative;
@@ -80,7 +80,7 @@ namespace gameV1
                 int attackDmg = player.CalculateDamage();
                 if ((isCrit = player.CritCheck()) == true)
                 {
-                    attackDmg = player.CalculateCritDamage(attackDmg);
+                    attackDmg = Player.CalculateCritDamage(attackDmg);
                     Console.WriteLine("Critical hit!");
                     Console.ReadKey();
                 }
@@ -184,9 +184,9 @@ namespace gameV1
             Console.ReadKey();
         }
 
-        public int HitOrMissPlayer(Player player, Monster monster)
+        public static int HitOrMissPlayer(Player player, Monster monster)
         {
-            Random random = new Random();
+            Random random = new();
             int hitOrMiss = random.Next(1, 101);
             if (hitOrMiss <= player.Accuracy - monster.Evasion)
             {
@@ -198,9 +198,9 @@ namespace gameV1
             }
         }
 
-        public int HitOrMissMonster(Player player, Monster monster)
+        public static int HitOrMissMonster(Player player, Monster monster)
         {
-            Random random = new Random();
+            Random random = new();
             int hitOrMiss = random.Next(1, 101);
             if (hitOrMiss <= monster.Accuracy - player.Evasion)
             {

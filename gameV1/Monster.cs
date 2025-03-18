@@ -87,12 +87,12 @@ namespace gameV1
 
         public int MonsterDamageRange()
         {
-            Random random = new Random();
+            Random random = new();
             int slimeAttPwr = random.Next(1, 6)*Level;
             return slimeAttPwr;
         }
 
-        public Monster GetMonsterClass(string monsterName)
+        public static Monster GetMonsterClass(string monsterName)
         {
             return monsterName switch
             {
@@ -105,7 +105,7 @@ namespace gameV1
 
         public Monster GetRandomMonster()
         {
-            Random random = new Random();
+            Random random = new();
             List<string> keys = monsterList.Keys.ToList();
             string randomKey = keys[random.Next(keys.Count)];
             return GetMonsterClass(randomKey);
