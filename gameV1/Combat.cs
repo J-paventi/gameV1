@@ -66,7 +66,7 @@ namespace gameV1
             Console.WriteLine($"\n{player.Name} attacks {slime.Name} with {player.EquippedWeapon.Key}!");
             if(HitOrMissPlayer(player, slime) == 1)
             {
-                player.Attack(slime);
+                player.AttackDmg(slime);
                 Console.WriteLine($"{slime.Name} takes {player.EquippedWeapon.Value}!");
             }
             else

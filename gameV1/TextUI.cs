@@ -10,7 +10,7 @@ namespace gameV1
     {
         public void DisplayWelcomeMsg()
         {
-            Console.WriteLine("Welcome to GAME NOT NAMED YET.\n");
+            Console.WriteLine("Welcome to Definitely Not DragonQuest.\n");
             Console.WriteLine("Press any key to continue\n");
             Console.ReadKey();
         }

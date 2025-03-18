@@ -8,9 +8,7 @@
             TextUI systemMessage = new TextUI();
             systemMessage.DisplayWelcomeMsg();
             player.Name = systemMessage.GetPlayerName();
-            //player.GetPlayerDetails();
             player.ChangePlayerWeapon(systemMessage.ChooseStarterWeapon(player.Name));
-            //player.GetPlayerDetails();
             Combat slimeFight = new Combat(new Slime(), player);
             slimeFight.StartCombat();
         }
