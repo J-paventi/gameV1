@@ -66,7 +66,13 @@ namespace gameV1
             Console.WriteLine($"\n{player.Name} attacks {slime.Name} with {player.EquippedWeapon.Key}!");
             if(HitOrMissPlayer(player, slime) == 1)
             {
+                bool isCrit;
                 int attackDmg = player.CalculateDamage();
+                if ((isCrit = player.CritCheck()) == true)
+                {
+                    attackDmg = player.CalculateCritDamage(attackDmg);
+                    Console.WriteLine("Critical hit!");
+                }
                 slime.TakeDamage(attackDmg);
                 Console.WriteLine($"{slime.Name} takes {attackDmg}!");
             }
@@ -130,12 +136,13 @@ namespace gameV1
         public void EndCombat()
         {
             Console.WriteLine("The battle has ended!");
+            CombatScreen(); 
             Console.ReadKey();
         }
 
         public void Loot()
         {
-            Console.WriteLine("You have looted the slime!");
+            Console.WriteLine("\nYou have looted the slime!");
             Console.WriteLine("You have found a health potion!");
             if (player.Health != player.MaxHealth)
             {

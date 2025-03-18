@@ -41,7 +41,7 @@ namespace gameV1
 
             foreach (var weapon in filteredWeapons)
             {
-                Console.WriteLine($"{weapon.Key} - {weapon.Value} damage");
+                Console.WriteLine($"{weapon.Key} - Level {weapon.Value}");
             }
 
             string? weaponChoice = null;

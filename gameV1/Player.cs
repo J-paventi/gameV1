@@ -17,6 +17,7 @@ namespace gameV1
         private int level;
         private int experience;
         private int gold;
+        private int strength;
         private int accuracy;
         private int evasion;
         private int damage;
@@ -31,12 +32,22 @@ namespace gameV1
         public int Level { get => level; set => level = value; }
         public int Experience { get => experience; set => experience = value; }
         public int Gold { get => gold; set => gold = value; }
+        public int Strength { get => strength; set => strength = value; }
         public int Accuracy { get => accuracy; set => accuracy = value; }
         public int Evasion { get => evasion; set => evasion = value; }
         public int Damage { get => damage; set => damage = value; }
         public float CritChance { get => critChance; set => critChance = value; }
-        public KeyValuePair<string, int> EquippedWeapon { get => equippedWeapon; 
-            set => equippedWeapon = value; }
+        public KeyValuePair<string, int> EquippedWeapon
+        {
+            get
+            {
+                return equippedWeapon;
+            }
+            set
+            {
+                equippedWeapon = value;
+            }
+        }
         public string Name 
         {
             get { return name; } 
@@ -63,10 +74,11 @@ namespace gameV1
             Level = 0;
             Experience = 0;
             Gold = 10;
+            Strength = 10;
             Accuracy = 100;
             Evasion = 15;
             Damage = 1;
-            CritChance = 3;
+            CritChance = 100;
             Weapons weapons = new Weapons();
             EquippedWeapon = weapons.SetWeapon("No Weapon");
         }
@@ -85,6 +97,15 @@ namespace gameV1
         {
             Weapons weapons = new Weapons();
             EquippedWeapon = weapons.SetWeapon(weaponName);
+            weapons = weapons.GetWeaponsClass(weaponName);
+            UpdateStatsWithWeapon(weapons);
+        }
+
+        public void UpdateStatsWithWeapon(Weapons weapon)
+        {
+            Damage += weapon.DamageModifier;
+            Accuracy += weapon.AccuracyModifier;
+            CritChance += weapon.CritChanceModifier;
         }
 
         public void GainExperience(int xp)
@@ -113,9 +134,40 @@ namespace gameV1
 
         public int CalculateDamage()
         {
-            int damage = Damage;
-            damage = damage + EquippedWeapon.Value;
-            return damage;
+            int baseDamage = Damage;
+            int damageSum = 0;
+            bool isCrit = false;
+            Random random = new Random();
+            if (baseDamage < Strength)
+            {
+                damageSum = random.Next(baseDamage, (Strength + 1)); // Add random damage between base and strength
+            }
+            else
+            {
+                damageSum = random.Next(Strength, (baseDamage + 1)); // Add random damage between strength and base
+            }
+            return damageSum;
+        }
+
+        public bool CritCheck()
+        {
+            Random random = new Random();
+            int critRoll = random.Next(1, 101);
+            if (critRoll <= CritChance)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public int CalculateCritDamage(int damageCalc)
+        {
+            damageCalc = damageCalc * 2;
+
+            return damageCalc;
         }
     }
 }

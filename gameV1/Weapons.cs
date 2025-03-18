@@ -24,7 +24,7 @@ namespace gameV1
         // Mutators and Accessors
         public Dictionary<string, int> WeaponList { get => weaponList; }
 
-        public Weapons() 
+        public Weapons()
         {
             weaponList = new Dictionary<string, int>()
             {
@@ -61,7 +61,7 @@ namespace gameV1
             return weaponList.Take(4).ToList();
         }
 
-        
+
 
         public string GetWeaponWithValue(int damage)
         {
@@ -106,49 +106,253 @@ namespace gameV1
             var weapon = weaponList.FirstOrDefault(w => w.Key.Equals(weaponName, StringComparison.OrdinalIgnoreCase));
             return weapon.Key;
         }
-    }
 
-    internal class Knuckles : Weapons
-    {
-        public Knuckles()
+
+        public Weapons GetWeaponsClass(string weaponName)
         {
-            DamageModifier = 2;
-            AccuracyModifier = 15;
-            CritChanceModifier = 0.75f;
-            CritDamageModifier = 1.5f;
+            return weaponName switch
+            {
+                "Knuckles" => new Knuckles(),
+                "Wooden Sword" => new Swords.WoodenSword(),
+                "Wooden Spear" => new Spears.WoodenSpear(),
+                "Wooden Bow" => new Bows.WoodenBow(),
+                "Knuckle Dusters" => new Knuckles.KnuckleDusters(),
+                "Sword" => new Swords(),
+                "Spear" => new Spears(),
+                "Bow" => new Bows(),
+                "Iron Knuckles" => new Knuckles.IronKnuckles(),
+                "Iron Sword" => new Swords.IronSword(),
+                "Iron Spear" => new Spears.IronSpear(),
+                "Iron Bow" => new Bows.IronBow(),
+                "Steel Knuckles" => new Knuckles.SteelKnuckles(),
+                "Steel Sword" => new Swords.SteelSword(),
+                "Steel Spear" => new Spears.SteelSpear(),
+                "Steel Bow" => new Bows.SteelBow(),
+                "Debug Knuckles" => new Knuckles.DebugKnuckles(),
+                "Debug Sword" => new Swords.DebugSword(),
+                "Debug Spear" => new Spears.DebugSpear(),
+                "Debug Bow" => new Bows.DebugBow(),
+                _ => new Weapons(),
+            };
+         }
+
+        internal class Knuckles : Weapons
+        {
+            public Knuckles()
+            {
+                DamageModifier = 2;
+                AccuracyModifier = 15;
+                CritChanceModifier = 0.75f;
+                CritDamageModifier = 1.5f;
+            }
+
+            internal class KnuckleDusters : Knuckles
+            {
+                public KnuckleDusters()
+                {
+                    DamageModifier = 3;
+                    AccuracyModifier = 20;
+                    CritChanceModifier = 0.8f;
+                    CritDamageModifier = 1.8f;
+                }
+            }
+
+            internal class IronKnuckles : Knuckles
+            {
+                public IronKnuckles()
+                {
+                    DamageModifier = 4;
+                    AccuracyModifier = 20;
+                    CritChanceModifier = 0.8f;
+                    CritDamageModifier = 2;
+                }
+            }
+
+            internal class SteelKnuckles : Knuckles
+            {
+                public SteelKnuckles()
+                {
+                    DamageModifier = 5;
+                    AccuracyModifier = 25;
+                    CritChanceModifier = 0.9f;
+                    CritDamageModifier = 2.5f;
+                }
+            }
+
+            internal class DebugKnuckles : Knuckles
+            {
+                public DebugKnuckles()
+                {
+                    DamageModifier = 100;
+                    AccuracyModifier = 100;
+                    CritChanceModifier = 1;
+                    CritDamageModifier = 100;
+                }
+            }
         }
-    }
 
-    internal class Swords : Weapons
-    {
-        public Swords()
+        internal class Swords : Weapons
         {
-            DamageModifier = 5;
-            AccuracyModifier = 10;
-            CritChanceModifier = 0.5f;
-            CritDamageModifier = 2;
+            public Swords()
+            {
+                DamageModifier = 5;
+                AccuracyModifier = 10;
+                CritChanceModifier = 0.5f;
+                CritDamageModifier = 2;
+            }
+
+            internal class  WoodenSword : Swords
+            {
+                public WoodenSword()
+                {
+                    DamageModifier = 3;
+                    AccuracyModifier = 5;
+                    CritChanceModifier = 0.2f;
+                    CritDamageModifier = 1.2f;
+                }
+            }
+
+            internal class IronSword : Swords
+            {
+                public IronSword()
+                {
+                    DamageModifier = 6;
+                    AccuracyModifier = 15;
+                    CritChanceModifier = 0.6f;
+                    CritDamageModifier = 2.5f;
+                }
+            }
+
+            internal class SteelSword : Swords
+            {
+                public SteelSword()
+                {
+                    DamageModifier = 7;
+                    AccuracyModifier = 20;
+                    CritChanceModifier = 0.7f;
+                    CritDamageModifier = 3;
+                }
+            }
+
+            internal class DebugSword : Swords
+            {
+                public DebugSword()
+                {
+                    DamageModifier = 100;
+                    AccuracyModifier = 100;
+                    CritChanceModifier = 1;
+                    CritDamageModifier = 100;
+                }
+            }
         }
-    }
 
-    internal class Spears : Weapons
-    {
-        public Spears()
+        internal class Spears : Weapons
         {
-            DamageModifier = 3;
-            AccuracyModifier = 25;
-            CritChanceModifier = 0.6f;
-            CritDamageModifier = 2;
+            public Spears()
+            {
+                DamageModifier = 3;
+                AccuracyModifier = 25;
+                CritChanceModifier = 0.6f;
+                CritDamageModifier = 2;
+            }
+
+            internal class WoodenSpear : Spears
+            {
+                public WoodenSpear()
+                {
+                    DamageModifier = 2;
+                    AccuracyModifier = 20;
+                    CritChanceModifier = 0.4f;
+                    CritDamageModifier = 1.5f;
+                }
+            }
+
+            internal class IronSpear : Spears
+            {
+                public IronSpear()
+                {
+                    DamageModifier = 4;
+                    AccuracyModifier = 30;
+                    CritChanceModifier = 0.7f;
+                    CritDamageModifier = 2.5f;
+                }
+            }
+
+            internal class SteelSpear : Spears
+            {
+                public SteelSpear()
+                {
+                    DamageModifier = 5;
+                    AccuracyModifier = 35;
+                    CritChanceModifier = 0.8f;
+                    CritDamageModifier = 3;
+                }
+            }
+
+            internal class DebugSpear : Spears
+            {
+                public DebugSpear()
+                {
+                    DamageModifier = 100;
+                    AccuracyModifier = 100;
+                    CritChanceModifier = 1;
+                    CritDamageModifier = 100;
+                }
+            }
         }
-    }
 
-    internal class Bows : Weapons
-    {
-        public Bows()
+        internal class Bows : Weapons
         {
-            DamageModifier = 4;
-            AccuracyModifier = 20;
-            CritChanceModifier = 0.4f;
-            CritDamageModifier = 2;
+            public Bows()
+            {
+                DamageModifier = 4;
+                AccuracyModifier = 30;
+                CritChanceModifier = 0.7f;
+                CritDamageModifier = 2.5f;
+            }
+            internal class WoodenBow : Bows
+            {
+                public WoodenBow()
+                {
+                    DamageModifier = 3;
+                    AccuracyModifier = 25;
+                    CritChanceModifier = 0.5f;
+                    CritDamageModifier = 2;
+                }
+            }
+
+            internal class IronBow : Bows
+            {
+                public IronBow()
+                {
+                    DamageModifier = 5;
+                    AccuracyModifier = 35;
+                    CritChanceModifier = 0.8f;
+                    CritDamageModifier = 3;
+                }
+            }
+
+            internal class SteelBow : Bows
+            {
+                public SteelBow()
+                {
+                    DamageModifier = 6;
+                    AccuracyModifier = 40;
+                    CritChanceModifier = 0.9f;
+                    CritDamageModifier = 3.5f;
+                }
+            }
+
+            internal class DebugBow : Bows
+            {
+                public DebugBow()
+                {
+                    DamageModifier = 100;
+                    AccuracyModifier = 100;
+                    CritChanceModifier = 1;
+                    CritDamageModifier = 100;
+                }
+            }
         }
     }
 }
