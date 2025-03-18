@@ -10,28 +10,28 @@ namespace gameV1
 {
     internal class Combat
     {
-        private Slime slime;
+        private Monster monster;
         private Player player;
         private int round;
-        private int slimeInitiative;
+        private int monsterInitiative;
         private int playerInitiative;
 
         public int Round { get => round; set => round = value; }
-        public int SlimeInitiative { get => slimeInitiative; set => slimeInitiative = value; }
+        public int MonsterInitiative { get => monsterInitiative; set => monsterInitiative = value; }
         public int PlayerInitiative { get => playerInitiative; set => playerInitiative = value; }
 
-        public Combat() { }
-
-        public Combat(Slime slime, Player player)
+        public Combat(Monster monster, Player player)
         {
-            this.slime = slime;
+            this.monster = monster;
             this.player = player;
         }
 
         public void StartCombat()
         {
+            monster = monster.GetRandomMonster();
+            monster.GetMonsterDetails();
             Console.Clear();
-            Console.WriteLine("\nA slime appears!");
+            Console.WriteLine($"\nA {monster.Name} appears!");
             RollInitiative();
             CombatScreen();
             Console.Clear();
@@ -44,9 +44,9 @@ namespace gameV1
             Console.Clear();
             Random random = new Random();
             int PlayerInitiative = random.Next(1, 21);
-            int SlimeInitiative = random.Next(1, 21);
+            int MonsterInitiative = random.Next(1, 21);
             CombatDetails();
-            if (PlayerInitiative > SlimeInitiative)
+            if (PlayerInitiative > MonsterInitiative)
             {
                 Console.WriteLine($"{player.Name} goes first!\n");
                 Console.ReadKey();
@@ -54,17 +54,17 @@ namespace gameV1
             }
             else
             {
-                Console.WriteLine($"{slime.Name} goes first!\n");
+                Console.WriteLine($"{monster.Name} goes first!\n");
                 Console.ReadKey();
-                SlimeTurn();
+                MonsterTurn();
             }
         }
 
         public void PlayerTurn()
         {
             Console.Clear();
-            Console.WriteLine($"\n{player.Name} attacks {slime.Name} with {player.EquippedWeapon.Key}!");
-            if(HitOrMissPlayer(player, slime) == 1)
+            Console.WriteLine($"\n{player.Name} attacks {monster.Name} with {player.EquippedWeapon.Key}!");
+            if(HitOrMissPlayer(player, monster) == 1)
             {
                 bool isCrit;
                 int attackDmg = player.CalculateDamage();
@@ -73,38 +73,38 @@ namespace gameV1
                     attackDmg = player.CalculateCritDamage(attackDmg);
                     Console.WriteLine("Critical hit!");
                 }
-                slime.TakeDamage(attackDmg);
-                Console.WriteLine($"{slime.Name} takes {attackDmg}!");
+                monster.TakeDamage(attackDmg);
+                Console.WriteLine($"{monster.Name} takes {attackDmg}!");
             }
             else
             {
                 Console.WriteLine($"{player.Name} misses!");
             }
             CombatScreen();
-            if (slime.Health <= 0)
+            if (monster.Health <= 0)
             {
-                Console.WriteLine($"{slime.Name} has been defeated!");
+                Console.WriteLine($"{monster.Name} has been defeated!");
             }
             else
             {
                 Console.ReadKey();
-                SlimeTurn();
+                MonsterTurn();
             }
         }
 
-        public void SlimeTurn()
+        public void MonsterTurn()
         {
             Console.Clear();
-            Console.WriteLine($"\n{slime.Name} attacks {player.Name}!");
-            if(HitOrMissSlime(player, slime) == 1)
+            Console.WriteLine($"\n{monster.Name} attacks {player.Name}!");
+            if(HitOrMissMonster(player, monster) == 1)
             {
-                int attackDmg = slime.AttackDmg();
+                int attackDmg = monster.AttackDmg();
                 player.TakeDamage(attackDmg);
                 Console.WriteLine($"{player.Name} takes {attackDmg}!");
             }
             else
             {
-                Console.WriteLine($"{slime.Name} misses!");
+                Console.WriteLine($"{monster.Name} misses!");
             }
             CombatScreen();
             if (player.Health <= 0)
@@ -121,15 +121,15 @@ namespace gameV1
         public void CombatDetails()
         {
             Console.WriteLine($"\n{player.Name} Initiative: {PlayerInitiative}");
-            Console.WriteLine($"{slime.Name} Initiative: {SlimeInitiative}");
+            Console.WriteLine($"{monster.Name} Initiative: {MonsterInitiative}");
         }
 
         public void CombatScreen()
         {
-            Console.WriteLine($"\nName: {player.Name}\t\t\t\t\tName: {slime.Name}");
-            Console.WriteLine($"Health: {player.Health}\t\t\t\t\tHealth: {slime.Health}");
-            Console.WriteLine($"Mana: {player.Mana}\t\t\t\t\tMana: {slime.Mana}");
-            Console.WriteLine($"Level: {player.Level}\t\t\t\t\tLevel: {slime.Level}");
+            Console.WriteLine($"\nName: {player.Name}\t\t\t\t\tName: {monster.Name}");
+            Console.WriteLine($"Health: {player.Health}\t\t\t\t\tHealth: {monster.Health}");
+            Console.WriteLine($"Mana: {player.Mana}\t\t\t\t\tMana: {monster.Mana}");
+            Console.WriteLine($"Level: {player.Level}\t\t\t\t\tLevel: {monster.Level}");
             Console.WriteLine($"Weapon: {player.EquippedWeapon}");
         }
 
@@ -142,7 +142,7 @@ namespace gameV1
 
         public void Loot()
         {
-            Console.WriteLine("\nYou have looted the slime!");
+            Console.WriteLine("\nYou have looted the monster!");
             Console.WriteLine("You have found a health potion!");
             if (player.Health != player.MaxHealth)
             {
@@ -161,18 +161,18 @@ namespace gameV1
                     player.Mana = player.MaxMana;
                 }
             }
-            player.Experience += slime.XpValue;
-            player.Gold += slime.GoldValue;
+            player.Experience += monster.XpValue;
+            player.Gold += monster.GoldValue;
             Console.WriteLine("You have gained experience and gold!");
             player.GetPlayerDetails();
             Console.ReadKey();
         }
 
-        public int HitOrMissPlayer(Player player, Slime slime)
+        public int HitOrMissPlayer(Player player, Monster monster)
         {
             Random random = new Random();
             int hitOrMiss = random.Next(1, 101);
-            if (hitOrMiss <= player.Accuracy - slime.Evasion)
+            if (hitOrMiss <= player.Accuracy - monster.Evasion)
             {
                 return 1;
             }
@@ -182,11 +182,11 @@ namespace gameV1
             }
         }
 
-        public int HitOrMissSlime(Player player, Slime slime)
+        public int HitOrMissMonster(Player player, Monster monster)
         {
             Random random = new Random();
             int hitOrMiss = random.Next(1, 101);
-            if (hitOrMiss <= slime.Accuracy - player.Evasion)
+            if (hitOrMiss <= monster.Accuracy - player.Evasion)
             {
                 return 1;
             }

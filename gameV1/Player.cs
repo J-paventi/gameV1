@@ -66,7 +66,7 @@ namespace gameV1
 
         public Player()
         {
-            Name = name;
+            name = "Player";
             MaxHealth = 100;
             Health = MaxHealth;
             MaxMana = 100;
@@ -78,7 +78,7 @@ namespace gameV1
             Accuracy = 100;
             Evasion = 15;
             Damage = 1;
-            CritChance = 100;
+            CritChance = 3;
             Weapons weapons = new Weapons();
             EquippedWeapon = weapons.SetWeapon("No Weapon");
         }
@@ -136,7 +136,6 @@ namespace gameV1
         {
             int baseDamage = Damage;
             int damageSum = 0;
-            bool isCrit = false;
             Random random = new Random();
             if (baseDamage < Strength)
             {

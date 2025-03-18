@@ -9,8 +9,8 @@
             systemMessage.DisplayWelcomeMsg();
             player.Name = systemMessage.GetPlayerName();
             player.ChangePlayerWeapon(systemMessage.ChooseStarterWeapon(player.Name));
-            Combat slimeFight = new Combat(new Slime(), player);
-            slimeFight.StartCombat();
+            Combat monsterFight = new Combat(new Monster(), player);
+            monsterFight.StartCombat();
         }
     }
 }

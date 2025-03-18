@@ -8,20 +8,18 @@ namespace gameV1
 {
     internal class Weapons
     {
+        // Class members
         private int damageModifier;
         private int accuracyModifier;
         private float critChanceModifier;
         private float critDamageModifier;
+        private Dictionary<string, int> weaponList;
 
+        // Mutators and Accessors
         public int DamageModifier { get => damageModifier; set => damageModifier = value; }
         public int AccuracyModifier { get => accuracyModifier; set => accuracyModifier = value; }
         public float CritChanceModifier { get => critChanceModifier; set => critChanceModifier = value; }
         public float CritDamageModifier { get => critDamageModifier; set => critDamageModifier = value; }
-
-        // Class members
-        private Dictionary<string, int> weaponList;
-
-        // Mutators and Accessors
         public Dictionary<string, int> WeaponList { get => weaponList; }
 
         public Weapons()
@@ -60,8 +58,6 @@ namespace gameV1
         {
             return weaponList.Take(4).ToList();
         }
-
-
 
         public string GetWeaponWithValue(int damage)
         {
@@ -106,7 +102,6 @@ namespace gameV1
             var weapon = weaponList.FirstOrDefault(w => w.Key.Equals(weaponName, StringComparison.OrdinalIgnoreCase));
             return weapon.Key;
         }
-
 
         public Weapons GetWeaponsClass(string weaponName)
         {
