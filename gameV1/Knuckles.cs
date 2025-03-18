@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace gameV1
 {
-    internal class Swords
+    internal class Knuckles
     {
         // Class members
         private int damageModifier;
@@ -20,12 +20,12 @@ namespace gameV1
         public float CritChanceModifier { get => critChanceModifier; set => critChanceModifier = value; }
         public float CritDamageModifier { get => critDamageModifier; set => critDamageModifier = value; }
 
-        public Swords()
+        public Knuckles()
         {
-            DamageModifier = 5;
-            AccuracyModifier = 10;
-            CritChanceModifier = 0.5f;
-            CritDamageModifier = 2;
+            DamageModifier = 2;
+            AccuracyModifier = 15;
+            CritChanceModifier = 0.75f;
+            CritDamageModifier = 1.5f;
         }
     }
 }

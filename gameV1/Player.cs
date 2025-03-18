@@ -19,6 +19,7 @@ namespace gameV1
         private int gold;
         private int accuracy;
         private int evasion;
+        private int damage;
         private float critChance;
         private KeyValuePair<string, int> equippedWeapon;
 
@@ -32,6 +33,7 @@ namespace gameV1
         public int Gold { get => gold; set => gold = value; }
         public int Accuracy { get => accuracy; set => accuracy = value; }
         public int Evasion { get => evasion; set => evasion = value; }
+        public int Damage { get => damage; set => damage = value; }
         public float CritChance { get => critChance; set => critChance = value; }
         public KeyValuePair<string, int> EquippedWeapon { get => equippedWeapon; 
             set => equippedWeapon = value; }
@@ -63,6 +65,7 @@ namespace gameV1
             Gold = 10;
             Accuracy = 100;
             Evasion = 15;
+            Damage = 1;
             CritChance = 3;
             Weapons weapons = new Weapons();
             EquippedWeapon = weapons.SetWeapon("No Weapon");
@@ -82,6 +85,11 @@ namespace gameV1
         {
             Weapons weapons = new Weapons();
             EquippedWeapon = weapons.SetWeapon(weaponName);
+            UpdateStatsWithWeapon();
+        }
+
+        public void UpdateStatsWithWeapon()
+        {
         }
 
         public void GainExperience(int xp)
@@ -108,9 +116,11 @@ namespace gameV1
             return Health;
         }
 
-        public void AttackDmg(Slime slime)
+        public int CalculateDamage()
         {
-            slime.TakeDamage(EquippedWeapon.Value);
+            int damage = Damage;
+            damage = damage + EquippedWeapon.Value;
+            return damage;
         }
     }
 }

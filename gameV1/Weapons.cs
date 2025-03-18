@@ -8,6 +8,16 @@ namespace gameV1
 {
     internal class Weapons
     {
+        private int damageModifier;
+        private int accuracyModifier;
+        private float critChanceModifier;
+        private float critDamageModifier;
+
+        public int DamageModifier { get => damageModifier; set => damageModifier = value; }
+        public int AccuracyModifier { get => accuracyModifier; set => accuracyModifier = value; }
+        public float CritChanceModifier { get => critChanceModifier; set => critChanceModifier = value; }
+        public float CritDamageModifier { get => critDamageModifier; set => critDamageModifier = value; }
+
         // Class members
         private Dictionary<string, int> weaponList;
 
@@ -42,6 +52,8 @@ namespace gameV1
         {
             return weaponList.Take(4).ToList();
         }
+
+        
 
         public string GetWeaponWithValue(int damage)
         {

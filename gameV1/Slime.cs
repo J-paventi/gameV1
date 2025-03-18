@@ -64,7 +64,6 @@ namespace gameV1
             Console.WriteLine($"Health: {Health}");
             Console.WriteLine($"Mana: {Mana}");
             Console.WriteLine($"Level: {Level}");
-            //Console.WriteLine($"Damage: {Damage}");
         }
 
         public int TakeDamage(int damage)
@@ -73,11 +72,11 @@ namespace gameV1
             return Health;
         }
 
-        public int Attack(Player player)
+        public int AttackDmg()
         {
-            Damage = SlimeDamageRange();
-            player.Health -= Damage;
-            return Damage;
+            int damage = Damage;
+            damage += SlimeDamageRange();
+            return damage; 
         }
 
         public int SlimeDamageRange()

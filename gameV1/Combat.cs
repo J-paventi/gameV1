@@ -66,8 +66,9 @@ namespace gameV1
             Console.WriteLine($"\n{player.Name} attacks {slime.Name} with {player.EquippedWeapon.Key}!");
             if(HitOrMissPlayer(player, slime) == 1)
             {
-                player.AttackDmg(slime);
-                Console.WriteLine($"{slime.Name} takes {player.EquippedWeapon.Value}!");
+                int attackDmg = player.CalculateDamage();
+                slime.TakeDamage(attackDmg);
+                Console.WriteLine($"{slime.Name} takes {attackDmg}!");
             }
             else
             {
@@ -91,8 +92,9 @@ namespace gameV1
             Console.WriteLine($"\n{slime.Name} attacks {player.Name}!");
             if(HitOrMissSlime(player, slime) == 1)
             {
-                int slimeDmg = slime.Attack(player);
-                Console.WriteLine($"{player.Name} takes {slimeDmg}!");
+                int attackDmg = slime.AttackDmg();
+                player.TakeDamage(attackDmg);
+                Console.WriteLine($"{player.Name} takes {attackDmg}!");
             }
             else
             {
