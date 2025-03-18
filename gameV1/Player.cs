@@ -85,11 +85,6 @@ namespace gameV1
         {
             Weapons weapons = new Weapons();
             EquippedWeapon = weapons.SetWeapon(weaponName);
-            UpdateStatsWithWeapon();
-        }
-
-        public void UpdateStatsWithWeapon()
-        {
         }
 
         public void GainExperience(int xp)

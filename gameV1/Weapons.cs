@@ -107,4 +107,48 @@ namespace gameV1
             return weapon.Key;
         }
     }
+
+    internal class Knuckles : Weapons
+    {
+        public Knuckles()
+        {
+            DamageModifier = 2;
+            AccuracyModifier = 15;
+            CritChanceModifier = 0.75f;
+            CritDamageModifier = 1.5f;
+        }
+    }
+
+    internal class Swords : Weapons
+    {
+        public Swords()
+        {
+            DamageModifier = 5;
+            AccuracyModifier = 10;
+            CritChanceModifier = 0.5f;
+            CritDamageModifier = 2;
+        }
+    }
+
+    internal class Spears : Weapons
+    {
+        public Spears()
+        {
+            DamageModifier = 3;
+            AccuracyModifier = 25;
+            CritChanceModifier = 0.6f;
+            CritDamageModifier = 2;
+        }
+    }
+
+    internal class Bows : Weapons
+    {
+        public Bows()
+        {
+            DamageModifier = 4;
+            AccuracyModifier = 20;
+            CritChanceModifier = 0.4f;
+            CritDamageModifier = 2;
+        }
+    }
 }
