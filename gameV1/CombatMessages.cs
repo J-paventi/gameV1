@@ -23,11 +23,13 @@ namespace gameV1
         }
 
         public string PlayerCombatMenu()
-        { 
-            Console.WriteLine("\n1. Attack");
+        {
+            Console.WriteLine("\n-------------");
+            Console.WriteLine("| 1. Attack |");
             //Console.WriteLine("2. Use Health Potion");
             //Console.WriteLine("3. Use Mana Potion");
             //Console.WriteLine("4. Run Away");
+            Console.WriteLine("-------------");
             string? playerChoice = Console.ReadLine();
             while (string.IsNullOrEmpty(playerChoice))
             {
