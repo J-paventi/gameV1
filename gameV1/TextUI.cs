@@ -8,6 +8,7 @@ namespace gameV1
 {
     internal class TextUI
     {
+        // System Messages
         public static void DisplayWelcomeMsg()
         {
             Console.WriteLine("Welcome to Definitely Not DragonQuest.\n");
@@ -15,6 +16,7 @@ namespace gameV1
             Console.ReadKey();
         }
 
+        // Messages for Player
         public static string GetPlayerName()
         {
             Console.WriteLine("Please enter a name for your character.\n");

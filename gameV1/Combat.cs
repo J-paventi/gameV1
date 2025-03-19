@@ -12,6 +12,8 @@ namespace gameV1
     {
         private Monster monster;
         private Player player;
+        private TextUI textUI;
+        private CombatMessages combatMsg;
         private int round;
         private int monsterInitiative;
         private int playerInitiative;
@@ -28,17 +30,19 @@ namespace gameV1
 
         public void StartCombat()
         {
+            TextUI textUI = new();
+            CombatMessages combatMsg = new();
             monster = monster.GetRandomMonster();
             monster.GetMonsterDetails();
             Console.Clear();
-            Console.WriteLine($"\nA {monster.Name} appears!");
+            combatMsg.MonsterAppearsMsg(monster);
             RollInitiative();
-            CombatScreen();
+            combatMsg.CombatScreen(player, monster);
             Console.Clear();
-            EndCombat();
+            combatMsg.EndCombat();
             if(monster.Health <= 0)
             {
-                Loot();
+                combatMsg.Loot(player, monster);
             }
             else
             {
@@ -49,22 +53,24 @@ namespace gameV1
 
         public void RollInitiative()
         {
+            TextUI textUI = new();
+            CombatMessages combatMsg = new();
             Console.Clear();
             Random random = new();
             int playerInitiative = random.Next(1, 21);
             int monsterInitiative = random.Next(1, 21);
             PlayerInitiative = playerInitiative;
             MonsterInitiative = monsterInitiative;
-            CombatDetails(playerInitiative, monsterInitiative);
+            combatMsg.CombatInitiativeMessage(player, monster, playerInitiative, monsterInitiative);
             if (playerInitiative > monsterInitiative)
             {
-                Console.WriteLine($"{player.Name} goes first!\n");
+                combatMsg.PlayerInitiativeMessage(player);
                 Console.ReadKey();
                 PlayerTurn();
             }
             else
             {
-                Console.WriteLine($"{monster.Name} goes first!\n");
+                combatMsg.MonsterInitiativeMessage(monster);
                 Console.ReadKey();
                 MonsterTurn();
             }
@@ -72,29 +78,31 @@ namespace gameV1
 
         public void PlayerTurn()
         {
+            TextUI textUI = new();
+            CombatMessages combatMsg = new();
             Console.Clear();
-            Console.WriteLine($"\n{player.Name} attacks {monster.Name} with {player.EquippedWeapon.Key}!");
-            if(HitOrMissPlayer(player, monster) == 1)
+            combatMsg.PlayerAttackMsg(player, monster);
+            if (HitOrMissPlayer(player, monster) == 1)
             {
                 bool isCrit;
                 int attackDmg = player.CalculateDamage();
                 if ((isCrit = player.CritCheck()) == true)
                 {
                     attackDmg = Player.CalculateCritDamage(attackDmg);
-                    Console.WriteLine("Critical hit!");
+                    combatMsg.PlayerCriticalHitMsg(player);
                     Console.ReadKey();
                 }
                 monster.TakeDamage(attackDmg);
-                Console.WriteLine($"{monster.Name} takes {attackDmg}!");
+                combatMsg.PlayerDamageMsg(monster, attackDmg);
             }
             else
             {
-                Console.WriteLine($"{player.Name} misses!");
+                combatMsg.PlayerMissMsg(player);
             }
-            CombatScreen();
+            combatMsg.CombatScreen(player, monster);
             if (monster.Health <= 0)
             {
-                Console.WriteLine($"{monster.Name} has been defeated!");
+                combatMsg.MonsterDefeatedMsg(monster);
             }
             else
             {
@@ -106,82 +114,28 @@ namespace gameV1
         public void MonsterTurn()
         {
             Console.Clear();
-            Console.WriteLine($"\n{monster.Name} attacks {player.Name}!");
-            if(HitOrMissMonster(player, monster) == 1)
+            CombatMessages combatMsg = new();
+            combatMsg.MonsterAttackMsg(monster, player);
+            if (HitOrMissMonster(player, monster) == 1)
             {
                 int attackDmg = monster.AttackDmg();
                 player.TakeDamage(attackDmg);
-                Console.WriteLine($"{player.Name} takes {attackDmg}!");
+                combatMsg.MonsterDamageMsg(player, attackDmg);
             }
             else
             {
-                Console.WriteLine($"{monster.Name} misses!");
+                combatMsg.MonsterMissMsg(monster);
             }
-            CombatScreen();
+            combatMsg.CombatScreen(player, monster);
             if (player.Health <= 0)
             {
-                Console.WriteLine($"{player.Name} has been defeated!");
+                combatMsg.PlayerDefeatedMsg(player);
             }
             else
             {
                 Console.ReadKey();
                 PlayerTurn();
             }
-        }
-
-        public void CombatDetails(int playerInitiative, int monsterInitiative)
-        {
-            Console.WriteLine($"\n{player.Name} Initiative: {PlayerInitiative}");
-            Console.WriteLine($"{monster.Name} Initiative: {MonsterInitiative}");
-        }
-
-        public void CombatScreen()
-        {
-            Console.WriteLine($"\nName: {player.Name}\t\t\t\t\tName: {monster.Name}");
-            Console.WriteLine($"Health: {player.Health}\t\t\t\t\tHealth: {monster.Health}");
-            Console.WriteLine($"Mana: {player.Mana}\t\t\t\t\tMana: {monster.Mana}");
-            Console.WriteLine($"Level: {player.Level}\t\t\t\t\tLevel: {monster.Level}");
-            Console.WriteLine($"Weapon: {player.EquippedWeapon}");
-        }
-
-        public void EndCombat()
-        {
-            Console.WriteLine("The battle has ended!");
-            CombatScreen(); 
-            Console.ReadKey();
-        }
-
-        public void Loot()
-        {
-            Console.WriteLine("\nYou have looted the monster!");
-            Console.WriteLine("You have found a health potion!");
-            if (player.Health != player.MaxHealth)
-            {
-                player.Health += 10;
-                if (player.Health > player.MaxHealth)
-                {
-                    player.Health = player.MaxHealth;
-                }
-            }
-            Console.WriteLine("You have found a mana potion!");
-            if (player.Mana != player.MaxMana)
-            {
-                player.Mana += 10;
-                if (player.Mana > player.MaxMana)
-                {
-                    player.Mana = player.MaxMana;
-                }
-            }
-            
-            bool didPlayerLevel = player.GainExperience(player, monster.XpValue);
-            if (didPlayerLevel == true)
-            {
-                player.LevelUp(player);
-            }
-            player.Gold += monster.GoldValue;
-            Console.WriteLine("You have gained experience and gold!");
-            player.GetPlayerDetails();
-            Console.ReadKey();
         }
 
         public static int HitOrMissPlayer(Player player, Monster monster)

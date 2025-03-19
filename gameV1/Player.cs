@@ -11,34 +11,21 @@ namespace gameV1
         // Class members
         private string name;
         private int health;
-        private int maxHealth;
         private int mana;
-        private int maxMana;
         private int level;
         private int levelUpThreshold;
-        private int experience;
         private int gold;
-        private int strength;
-        private int accuracy;
-        private int evasion;
         private int damage;
-        private float critChance;
         private KeyValuePair<string, int> equippedWeapon;
 
         // Mutators and Accessors
         public int Health { get => health; set => health = value; }
-        public int MaxHealth { get => maxHealth; set => maxHealth = value; }
         public int Mana { get => mana; set => mana = value; }
-        public int MaxMana { get => maxMana; set => maxMana = value; }
         public int Level { get => level; set => level = value; }
         public int LevelUpThreshold { get => levelUpThreshold; set => levelUpThreshold = value; }
         public int TotalExperience { get => experience; set => experience = value; }
         public int Gold { get => gold; set => gold = value; }
-        public int Strength { get => strength; set => strength = value; }
-        public int Accuracy { get => accuracy; set => accuracy = value; }
-        public int Evasion { get => evasion; set => evasion = value; }
         public int Damage { get => damage; set => damage = value; }
-        public float CritChance { get => critChance; set => critChance = value; }
         public KeyValuePair<string, int> EquippedWeapon
         {
             get
@@ -66,6 +53,23 @@ namespace gameV1
             }
         }
 
+        // Player Stats
+        private int maxHealth;
+        private int maxMana;
+        private int strength;
+        private int accuracy;
+        private int evasion;
+        private int experience;
+        private float critChance;
+
+        // Player Stat Accessor and Mutators
+        public int MaxHealth { get => maxHealth; set => maxHealth = value; }
+        public int MaxMana { get => maxMana; set => maxMana = value; }
+        public int Strength { get => strength; set => strength = value; }
+        public int Accuracy { get => accuracy; set => accuracy = value; }
+        public int Evasion { get => evasion; set => evasion = value; }
+        public float CritChance { get => critChance; set => critChance = value; }
+
         public Player()
         {
             name = "Player";
@@ -75,7 +79,7 @@ namespace gameV1
             Mana = MaxMana;
             Level = 0;
             LevelUpThreshold = 100;
-            TotalExperience = 99;
+            TotalExperience = 0;
             Gold = 10;
             Strength = 10;
             Accuracy = 100;
@@ -125,7 +129,7 @@ namespace gameV1
 
         public void LevelUp(Player player)
         {
-            TextUI textUI = new TextUI();
+            TextUI textUI = new();
             Level++;
             MaxHealth += 10;
             Health = MaxHealth;
@@ -159,7 +163,7 @@ namespace gameV1
 
         public bool CritCheck()
         {
-            Random random = new Random();
+            Random random = new();
             int critRoll = random.Next(1, 101);
             if (critRoll <= CritChance)
             {
