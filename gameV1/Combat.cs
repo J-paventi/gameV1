@@ -12,8 +12,6 @@ namespace gameV1
     {
         private Monster monster;
         private Player player;
-        private TextUI textUI;
-        private CombatMessages combatMsg;
         private int round;
         private int monsterInitiative;
         private int playerInitiative;
