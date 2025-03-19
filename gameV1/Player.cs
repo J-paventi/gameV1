@@ -206,5 +206,10 @@ namespace gameV1
         {
             Inventory = new Dictionary<string, int>();
         }
+
+        public Dictionary<string, int> GetPlayerInventory()
+        {
+            return Inventory;
+        }
     }
 }

@@ -152,5 +152,52 @@ namespace gameV1
                 player.Inventory.Add(key, value);
             }
         }
+
+        public void PrintPlayerInventory(Player player)
+        {
+            Console.WriteLine("\nInventory:");
+            foreach (KeyValuePair<string, int> item in player.Inventory)
+            {
+                Console.WriteLine($"{item.Key}: {item.Value}");
+            }
+        }
+
+        public int DoesThePlayerHaveThisItem(Player player, string item)
+        {
+            int hasItem = 0;
+            if (player.Inventory.ContainsKey(item))
+            {
+                hasItem = 1;
+            }
+            return hasItem;
+        }
+
+        public void ItemDoesNotExistMsg()
+        {
+            Console.WriteLine("You do not have that item.");
+        }
+
+        public void UseItem(Player player, string item)
+        {
+            if (player.Inventory.ContainsKey(item))
+            {
+                if (item == "Health Potion")
+                {
+                    player.Health += 10;
+                    player.Inventory[item] -= 1;
+                    Console.WriteLine("You have used a health potion!");
+                }
+                if (item == "Mana Potion")
+                {
+                    player.Mana += 10;
+                    player.Inventory[item] -= 1;
+                    Console.WriteLine("You have used a mana potion!");
+                }
+            }
+            else
+            {
+                Console.WriteLine("You do not have that item.");
+            }
+        }
     }
 }

@@ -84,56 +84,74 @@ namespace gameV1
             int playerChoice = -1;
             Console.Clear();
 
-            combatMsg.CombatScreen(player, monster, IsPlayerTurn);
-            if(isPlayerTurn == true)
+            while (true)
             {
-                string playerMenuChoice = combatMsg.PlayerCombatMenu();
-                int.TryParse(playerMenuChoice, out int result);
-                playerChoice = result;
-                Console.Clear();
-            }
+                combatMsg.CombatScreen(player, monster, IsPlayerTurn);
+                if (isPlayerTurn == true)
+                {
+                    string playerMenuChoice = combatMsg.PlayerCombatMenu();
+                    int.TryParse(playerMenuChoice, out int result);
+                    playerChoice = result;
+                    Console.Clear();
+                }
 
-            if(playerChoice == 1)       // Attack
-            {
-                combatMsg.PlayerAttackMsg(player, monster);
-                if (HitOrMissPlayer(player, monster) == 1)
+                if (playerChoice == 1)       // Attack -- Ends turn
                 {
-                    bool isCrit;
-                    int attackDmg = player.CalculateDamage();
-                    if ((isCrit = player.CritCheck()) == true)
+                    combatMsg.PlayerAttackMsg(player, monster);
+                    if (HitOrMissPlayer(player, monster) == 1)
                     {
-                        attackDmg = Player.CalculateCritDamage(attackDmg);
-                        combatMsg.PlayerCriticalHitMsg(player);
-                        Console.ReadKey();
+                        bool isCrit;
+                        int attackDmg = player.CalculateDamage();
+                        if ((isCrit = player.CritCheck()) == true)
+                        {
+                            attackDmg = Player.CalculateCritDamage(attackDmg);
+                            combatMsg.PlayerCriticalHitMsg(player);
+                            Console.ReadKey();
+                        }
+                        monster.TakeDamage(attackDmg);
+                        combatMsg.PlayerDamageMsg(monster, attackDmg);
+                        combatMsg.CombatScreen(player, monster, IsPlayerTurn);
                     }
-                    monster.TakeDamage(attackDmg);
-                    combatMsg.PlayerDamageMsg(monster, attackDmg);
-                    combatMsg.CombatScreen(player, monster, IsPlayerTurn);
+                    else
+                    {
+                        combatMsg.PlayerMissMsg(player);
+                        combatMsg.CombatScreen(player, monster, IsPlayerTurn);
+                    }
+                    break; // Exit the loop after attacking
                 }
-                else
+                if (playerChoice == 2)       // Cast Spell -- Ends turn
                 {
-                    combatMsg.PlayerMissMsg(player);
-                    combatMsg.CombatScreen(player, monster, IsPlayerTurn);
+                    Console.WriteLine("Not yet implemented.");
+                    //break;
+                }
+                if (playerChoice == 3)      // Inventory
+                {
+                    combatMsg.PrintPlayerInventory(player);
+                    string? itemToUse = Console.ReadLine();
+                    int doesItemExist = combatMsg.DoesThePlayerHaveThisItem(player, itemToUse);
+                    if (doesItemExist == 0)
+                    {
+                        combatMsg.ItemDoesNotExistMsg();
+                    }
+                    else
+                    {
+                        combatMsg.UseItem(player, itemToUse);
+                        combatMsg.CombatScreen(player, monster, IsPlayerTurn);
+                    }
+                }
+                if (playerChoice == 4)      // Try to run away -- Ends turn
+                {
+                    Console.WriteLine("Not yet implemented.");
+                    //break;
+                }
+                if (monster.Health <= 0)    // Monster Defeated
+                {
+                    Console.ReadKey();
+                    combatMsg.MonsterDefeatedMsg(monster);
+                    break; // Exit the loop if the monster is defeated
                 }
             }
-            if(playerChoice == 2)       // Cast Spell
-            {
-                Console.WriteLine("Not yet implemented.");
-            }
-            if (playerChoice == 3)      // Inventory
-            {
-                Console.WriteLine("Not yet implemented.");
-            }
-            if (playerChoice == 4)      // Run Away
-            {
-                Console.WriteLine("Not yet implemented.");
-            }
-            if (monster.Health <= 0)    // Monster Defeated
-            {
-                Console.ReadKey();
-                combatMsg.MonsterDefeatedMsg(monster);
-            }
-            else
+            if (monster.Health > 0) // If the monster is still alive, it's the monster's turn
             {
                 Console.ReadKey();
                 MonsterTurn();
