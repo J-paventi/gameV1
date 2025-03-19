@@ -123,33 +123,30 @@ namespace gameV1
         {
             Console.WriteLine("\nYou have looted the monster!");
             Console.WriteLine("You have found a health potion!");
-            if (player.Health != player.MaxHealth)
-            {
-                player.Health += 10;
-                if (player.Health > player.MaxHealth)
-                {
-                    player.Health = player.MaxHealth;
-                }
-            }
+            AddToPlayerInventory(player, "Health Potion", 1);
             Console.WriteLine("You have found a mana potion!");
-            if (player.Mana != player.MaxMana)
-            {
-                player.Mana += 10;
-                if (player.Mana > player.MaxMana)
-                {
-                    player.Mana = player.MaxMana;
-                }
-            }
-
+            AddToPlayerInventory(player, "Mana Potion", 1);
             bool didPlayerLevel = player.GainExperience(player, monster.XpValue);
             if (didPlayerLevel == true)
             {
                 player.LevelUp(player);
             }
-            player.Gold += monster.GoldValue;
+            AddToPlayerInventory(player, "Gold", monster.GoldValue);
             Console.WriteLine("You have gained experience and gold!");
             player.GetPlayerDetails();
             Console.ReadKey();
+        }
+
+        public void AddToPlayerInventory(Player player, string key, int value)
+        {
+            if (player.Inventory.ContainsKey(key))
+            {
+                player.Inventory[key] += value;
+            }
+            else
+            {
+                player.Inventory.Add(key, value);
+            }
         }
     }
 }

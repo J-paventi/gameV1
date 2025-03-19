@@ -17,6 +17,7 @@ namespace gameV1
         private int gold;
         private int damage;
         private KeyValuePair<string, int> equippedWeapon;
+        private Dictionary<string, int> inventory;
 
         // Mutators and Accessors
         public int Health { get => health; set => health = value; }
@@ -26,6 +27,22 @@ namespace gameV1
         public int TotalExperience { get => experience; set => experience = value; }
         public int Gold { get => gold; set => gold = value; }
         public int Damage { get => damage; set => damage = value; }
+        public Dictionary<string, int> Inventory { get => inventory; set => inventory = value; }
+        public string Name
+        {
+            get { return name; }
+            set
+            {
+                if (value == null)
+                {
+                    name = "Player";
+                }
+                else
+                {
+                    name = value;
+                }
+            }
+        }
         public KeyValuePair<string, int> EquippedWeapon
         {
             get
@@ -35,21 +52,6 @@ namespace gameV1
             set
             {
                 equippedWeapon = value;
-            }
-        }
-        public string Name 
-        {
-            get { return name; } 
-            set 
-            {
-                if(value == null)
-                {
-                    name = "Player";
-                }
-                else
-                {
-                    name = value;
-                }
             }
         }
 
@@ -98,6 +100,7 @@ namespace gameV1
             CritChance = 3;
             Weapons weapons = new Weapons();
             EquippedWeapon = weapons.SetWeapon("No Weapon");
+            Inventory = new Dictionary<string, int>();
         }
         public void GetPlayerDetails()
         {
@@ -106,7 +109,14 @@ namespace gameV1
             Console.WriteLine($"Mana: {Mana}");
             Console.WriteLine($"Level: {Level}");
             Console.WriteLine($"TotalExperience: {TotalExperience}");
-            Console.WriteLine($"Gold: {Gold}");
+            if (Inventory.ContainsKey("Gold"))
+            {
+                Console.WriteLine($"Gold: {Inventory["Gold"]}");
+            }
+            else
+            {
+                Console.WriteLine("Gold: 0");
+            }
             Console.WriteLine($"Weapon: {EquippedWeapon}");
         }
 
@@ -190,6 +200,11 @@ namespace gameV1
             damageCalc *= 2;
 
             return damageCalc;
+        }
+
+        public void CreatePlayerInventory()
+        {
+            Inventory = new Dictionary<string, int>();
         }
     }
 }
