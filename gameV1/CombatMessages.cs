@@ -26,9 +26,9 @@ namespace gameV1
         {
             Console.WriteLine("\n---------------------");
             Console.WriteLine("| 1. Attack         |");
-            Console.WriteLine("| 2. Cast Spell     |");
-            Console.WriteLine("| 3. Open Inventory |");
-            Console.WriteLine("| 4. Run Away       |");
+            Console.WriteLine("| 2. Cast Spell     | Not yet implimented");
+            Console.WriteLine("| 3. Open Inventory | Not yet implimented");
+            Console.WriteLine("| 4. Run Away       | Not yet implimented");
             Console.WriteLine("---------------------\n");
             string? playerChoice = Console.ReadLine();
             while (string.IsNullOrEmpty(playerChoice))

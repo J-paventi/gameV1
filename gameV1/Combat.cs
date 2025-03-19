@@ -93,7 +93,7 @@ namespace gameV1
                 Console.Clear();
             }
 
-            if(playerChoice == 1)
+            if(playerChoice == 1)       // Attack
             {
                 combatMsg.PlayerAttackMsg(player, monster);
                 if (HitOrMissPlayer(player, monster) == 1)
@@ -116,7 +116,19 @@ namespace gameV1
                     combatMsg.CombatScreen(player, monster, IsPlayerTurn);
                 }
             }
-            if (monster.Health <= 0)
+            if(playerChoice == 2)       // Cast Spell
+            {
+                Console.WriteLine("Not yet implemented.");
+            }
+            if (playerChoice == 3)      // Inventory
+            {
+                Console.WriteLine("Not yet implemented.");
+            }
+            if (playerChoice == 4)      // Run Away
+            {
+                Console.WriteLine("Not yet implemented.");
+            }
+            if (monster.Health <= 0)    // Monster Defeated
             {
                 Console.ReadKey();
                 combatMsg.MonsterDefeatedMsg(monster);
@@ -145,7 +157,7 @@ namespace gameV1
                 combatMsg.MonsterMissMsg(monster);
             }
             combatMsg.CombatScreen(player, monster, IsPlayerTurn);
-            if (player.Health <= 0)
+            if (player.Health <= 0)     // Player Defeated
             {
                 combatMsg.PlayerDefeatedMsg(player);
             }
