@@ -11,7 +11,7 @@ namespace gameV1
     internal class CombatMessages
     {
         // Combat UI Screen
-        public void CombatScreen(Player player, Monster monster)
+        public void CombatScreen(Player player, Monster monster, bool playerTurn)
         {
             Console.WriteLine($"\nName: {player.Name}\t\t\t\t\tName: {monster.Name}");
             Console.WriteLine($"Health: {player.Health}\t\t\t\t\tHealth: {monster.Health}");
@@ -19,25 +19,28 @@ namespace gameV1
             Console.WriteLine($"Level: {player.Level}\t\t\t\t\tLevel: {monster.Level}");
             Console.WriteLine($"Weapon: {player.EquippedWeapon}");
 
-            //if (monster.Health > 0)
+            //if (playerTurn == true)
             //{
             //    PlayerCombatMenu();
             //}
         }
 
-        //public void PlayerCombatMenu()
-        //{
-        //    Console.WriteLine("\n1. Attack");
-        //    //Console.WriteLine("2. Use Health Potion");
-        //    //Console.WriteLine("3. Use Mana Potion");
-        //    //Console.WriteLine("4. Run Away");
-        //    string? playerChoice = Console.ReadLine();
-        //    if (string.IsNullOrEmpty(playerChoice))
-        //    {
-        //        Console.WriteLine("Invalid choice. Please try again.");
-        //        playerChoice = Console.ReadLine();
-        //    }
-        //}
+        // This isn't working yet.
+        // Player turn automatically starts with attack...
+        public string PlayerCombatMenu()
+        { 
+            Console.WriteLine("\n1. Attack");
+            //Console.WriteLine("2. Use Health Potion");
+            //Console.WriteLine("3. Use Mana Potion");
+            //Console.WriteLine("4. Run Away");
+            string? playerChoice = Console.ReadLine();
+            while (string.IsNullOrEmpty(playerChoice))
+            {
+                Console.WriteLine("Invalid choice. Please try again.");
+                playerChoice = Console.ReadLine();
+            }
+            return playerChoice;
+        }
 
         // Beginning of Combat
         public void MonsterAppearsMsg(Monster monster)

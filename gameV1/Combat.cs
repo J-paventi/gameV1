@@ -15,10 +15,12 @@ namespace gameV1
         private int round;
         private int monsterInitiative;
         private int playerInitiative;
+        private bool isPlayerTurn;
 
         public int Round { get => round; set => round = value; }
         public int MonsterInitiative { get => monsterInitiative; set => monsterInitiative = value; }
         public int PlayerInitiative { get => playerInitiative; set => playerInitiative = value; }
+        public bool IsPlayerTurn { get => isPlayerTurn; set => isPlayerTurn = value; }
 
         public Combat(Monster monster, Player player)
         {
@@ -35,7 +37,7 @@ namespace gameV1
             Console.Clear();
             combatMsg.MonsterAppearsMsg(monster);
             RollInitiative();
-            combatMsg.CombatScreen(player, monster);
+            combatMsg.CombatScreen(player, monster, IsPlayerTurn);
             Console.Clear();
             combatMsg.EndCombat();
             if(monster.Health <= 0)
@@ -76,28 +78,45 @@ namespace gameV1
 
         public void PlayerTurn()
         {
+            IsPlayerTurn = true;
             TextUI textUI = new();
             CombatMessages combatMsg = new();
+            int playerChoice = -1;
             Console.Clear();
-            combatMsg.PlayerAttackMsg(player, monster);
-            if (HitOrMissPlayer(player, monster) == 1)
+
+            combatMsg.CombatScreen(player, monster, IsPlayerTurn);
+            if(isPlayerTurn == true)
             {
-                bool isCrit;
-                int attackDmg = player.CalculateDamage();
-                if ((isCrit = player.CritCheck()) == true)
+                string playerMenuChoice = combatMsg.PlayerCombatMenu();
+                int.TryParse(playerMenuChoice, out int result);
+                playerChoice = result;
+                Console.Clear();
+            }
+
+            if(playerChoice == 1)
+            {
+                combatMsg.PlayerAttackMsg(player, monster);
+                if (HitOrMissPlayer(player, monster) == 1)
                 {
-                    attackDmg = Player.CalculateCritDamage(attackDmg);
-                    combatMsg.PlayerCriticalHitMsg(player);
-                    Console.ReadKey();
+                    bool isCrit;
+                    int attackDmg = player.CalculateDamage();
+                    if ((isCrit = player.CritCheck()) == true)
+                    {
+                        attackDmg = Player.CalculateCritDamage(attackDmg);
+                        combatMsg.PlayerCriticalHitMsg(player);
+                        Console.ReadKey();
+                    }
+                    monster.TakeDamage(attackDmg);
+                    combatMsg.PlayerDamageMsg(monster, attackDmg);
+                    combatMsg.CombatScreen(player, monster, IsPlayerTurn);
                 }
-                monster.TakeDamage(attackDmg);
-                combatMsg.PlayerDamageMsg(monster, attackDmg);
+                else
+                {
+                    combatMsg.PlayerMissMsg(player);
+                    combatMsg.CombatScreen(player, monster, IsPlayerTurn);
+                }
             }
-            else
-            {
-                combatMsg.PlayerMissMsg(player);
-            }
-            combatMsg.CombatScreen(player, monster);
+            //combatMsg.CombatScreen(player, monster, IsPlayerTurn);
             if (monster.Health <= 0)
             {
                 Console.ReadKey();
@@ -113,6 +132,7 @@ namespace gameV1
         public void MonsterTurn()
         {
             Console.Clear();
+            IsPlayerTurn = false;
             CombatMessages combatMsg = new();
             combatMsg.MonsterAttackMsg(monster, player);
             if (HitOrMissMonster(player, monster) == 1)
@@ -125,7 +145,7 @@ namespace gameV1
             {
                 combatMsg.MonsterMissMsg(monster);
             }
-            combatMsg.CombatScreen(player, monster);
+            combatMsg.CombatScreen(player, monster, IsPlayerTurn);
             if (player.Health <= 0)
             {
                 combatMsg.PlayerDefeatedMsg(player);
