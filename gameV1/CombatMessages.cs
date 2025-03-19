@@ -18,7 +18,26 @@ namespace gameV1
             Console.WriteLine($"Mana: {player.Mana}\t\t\t\t\tMana: {monster.Mana}");
             Console.WriteLine($"Level: {player.Level}\t\t\t\t\tLevel: {monster.Level}");
             Console.WriteLine($"Weapon: {player.EquippedWeapon}");
+
+            //if (monster.Health > 0)
+            //{
+            //    PlayerCombatMenu();
+            //}
         }
+
+        //public void PlayerCombatMenu()
+        //{
+        //    Console.WriteLine("\n1. Attack");
+        //    //Console.WriteLine("2. Use Health Potion");
+        //    //Console.WriteLine("3. Use Mana Potion");
+        //    //Console.WriteLine("4. Run Away");
+        //    string? playerChoice = Console.ReadLine();
+        //    if (string.IsNullOrEmpty(playerChoice))
+        //    {
+        //        Console.WriteLine("Invalid choice. Please try again.");
+        //        playerChoice = Console.ReadLine();
+        //    }
+        //}
 
         // Beginning of Combat
         public void MonsterAppearsMsg(Monster monster)

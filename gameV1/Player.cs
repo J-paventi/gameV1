@@ -57,6 +57,11 @@ namespace gameV1
         private int maxHealth;
         private int maxMana;
         private int strength;
+        private int dexterity;
+        private int constitution;
+        private int intelligence;
+        private int wisdom;
+        private int charisma;
         private int accuracy;
         private int evasion;
         private int experience;
@@ -66,6 +71,11 @@ namespace gameV1
         public int MaxHealth { get => maxHealth; set => maxHealth = value; }
         public int MaxMana { get => maxMana; set => maxMana = value; }
         public int Strength { get => strength; set => strength = value; }
+        public int Dexterity { get => dexterity; set => dexterity = value; }
+        public int Constitution { get => constitution; set => constitution = value; }
+        public int Intelligence { get => intelligence; set => intelligence = value; }
+        public int Wisdom { get => wisdom; set => wisdom = value; }
+        public int Charisma { get => charisma; set => charisma = value; }
         public int Accuracy { get => accuracy; set => accuracy = value; }
         public int Evasion { get => evasion; set => evasion = value; }
         public float CritChance { get => critChance; set => critChance = value; }

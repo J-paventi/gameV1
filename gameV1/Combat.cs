@@ -100,6 +100,7 @@ namespace gameV1
             combatMsg.CombatScreen(player, monster);
             if (monster.Health <= 0)
             {
+                Console.ReadKey();
                 combatMsg.MonsterDefeatedMsg(monster);
             }
             else
