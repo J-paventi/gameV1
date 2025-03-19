@@ -116,7 +116,6 @@ namespace gameV1
                     combatMsg.CombatScreen(player, monster, IsPlayerTurn);
                 }
             }
-            //combatMsg.CombatScreen(player, monster, IsPlayerTurn);
             if (monster.Health <= 0)
             {
                 Console.ReadKey();

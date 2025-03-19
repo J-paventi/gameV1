@@ -10,7 +10,7 @@ namespace gameV1
 {
     internal class CombatMessages
     {
-        // Combat UI Screen
+        // Combat UI Screens
         public void CombatScreen(Player player, Monster monster, bool playerTurn)
         {
             Console.WriteLine($"\nName: {player.Name}\t\t\t\t\tName: {monster.Name}");
@@ -18,15 +18,8 @@ namespace gameV1
             Console.WriteLine($"Mana: {player.Mana}\t\t\t\t\tMana: {monster.Mana}");
             Console.WriteLine($"Level: {player.Level}\t\t\t\t\tLevel: {monster.Level}");
             Console.WriteLine($"Weapon: {player.EquippedWeapon}");
-
-            //if (playerTurn == true)
-            //{
-            //    PlayerCombatMenu();
-            //}
         }
 
-        // This isn't working yet.
-        // Player turn automatically starts with attack...
         public string PlayerCombatMenu()
         { 
             Console.WriteLine("\n1. Attack");
