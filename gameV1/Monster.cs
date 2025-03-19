@@ -12,6 +12,7 @@ namespace gameV1
         private string name;
         private int health;
         private int mana;
+        private string monsterWeapon;
         private int level;
         private int damage;
         private int accuracy;
@@ -23,6 +24,7 @@ namespace gameV1
         // Mutators and Accessors
         public int Health { get => health; set => health = value; }
         public int Mana { get => mana; set => mana = value; }
+        public string MonsterWeapon { get => monsterWeapon; set => monsterWeapon = value; }
         public int Level { get => level; set => level = value; }
         public int Damage { get => damage; set => damage = value; }
         public int Accuracy { get => accuracy; set => accuracy = value; }
@@ -51,6 +53,7 @@ namespace gameV1
             name = "monster";
             Health = 0;
             Mana = 0;
+            MonsterWeapon = "None";
             Level = 0;
             Damage = 0;
             Accuracy = 0;
@@ -118,6 +121,7 @@ namespace gameV1
                 Name = "Slime";
                 Health = 25;
                 Mana = 0;
+                MonsterWeapon = "None";
                 Level = 1;
                 Damage = 1;
                 accuracy = 100;
@@ -134,6 +138,7 @@ namespace gameV1
                 Name = "Goblin";
                 Health = 20;
                 Mana = 0;
+                MonsterWeapon = "Crude Sword";
                 Level = 1;
                 Damage = 3;
                 accuracy = 100;
@@ -150,6 +155,7 @@ namespace gameV1
                 Name = "Vicious Hamster";
                 Health = 10;
                 Mana = 0;
+                MonsterWeapon = "Sharp Teeth";
                 Level = 1;
                 Damage = 5;
                 accuracy = 100;

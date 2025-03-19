@@ -13,11 +13,13 @@ namespace gameV1
         // Combat UI Screens
         public void CombatScreen(Player player, Monster monster, bool playerTurn)
         {
-            Console.WriteLine($"\nName: {player.Name}\t\t\t\t\tName: {monster.Name}");
-            Console.WriteLine($"Health: {player.Health}\t\t\t\t\tHealth: {monster.Health}");
-            Console.WriteLine($"Mana: {player.Mana}\t\t\t\t\tMana: {monster.Mana}");
-            Console.WriteLine($"Level: {player.Level}\t\t\t\t\tLevel: {monster.Level}");
-            Console.WriteLine($"Weapon: {player.EquippedWeapon}");
+            Console.WriteLine("-----------------------------------------------------------");
+            Console.WriteLine($"| Name: {player.Name, -20} | Name: {monster.Name, -20} |");
+            Console.WriteLine($"| Health: {player.Health, -18} | Health: {monster.Health, -18} |");
+            Console.WriteLine($"| Mana: {player.Mana, -20} | Mana: {monster.Mana, -20} |");
+            Console.WriteLine($"| Level: {player.Level, -19} | Level: {monster.Level, -19} |");
+            Console.WriteLine($"| Weapon: {player.EquippedWeapon, -18} | Weapon: {monster.MonsterWeapon, -18} |");
+            Console.WriteLine("-----------------------------------------------------------");
         }
 
         public string PlayerCombatMenu()
